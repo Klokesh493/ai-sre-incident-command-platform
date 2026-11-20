@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ops-platform
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels: {app: ops-platform}
+  template:
+    metadata:
+      labels: {app: ops-platform}
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        fsGroup: 10001
+        seccompProfile: {type: RuntimeDefault}
+      containers:
+        - name: api
+          image: ops-platform:local
+          imagePullPolicy: IfNotPresent
+          ports: [{containerPort: 8000}]
+          env:
+            - name: OPS_API_TOKEN
+              valueFrom:
+                secretKeyRef: {name: ops-platform, key: api-token}
+            - name: OPS_DATABASE
+              value: /data/platform.sqlite3
+          resources:
+            requests: {cpu: 100m, memory: 128Mi}
+            limits: {cpu: "1", memory: 512Mi}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: {drop: [ALL]}
+          readinessProbe:
+            httpGet: {path: /readyz, port: 8000}
+          livenessProbe:
+            httpGet: {path: /healthz, port: 8000}
+          volumeMounts:
+            - {name: state, mountPath: /data}
+      volumes:
+        - name: state
+          persistentVolumeClaim: {claimName: ops-platform}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ops-platform
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests: {storage: 1Gi}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ops-platform
+spec:
+  selector: {app: ops-platform}
+  ports: [{port: 8000, targetPort: 8000}]

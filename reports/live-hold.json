@@ -1,0 +1,91 @@
+{
+  "citations": [
+    "telemetry",
+    "splunk",
+    "oncall"
+  ],
+  "decision": "review",
+  "evidence": {
+    "oncall": {
+      "data": [
+        {
+          "end_minute": 120,
+          "owner": "responder-a",
+          "service": "checkout",
+          "start_minute": 50
+        }
+      ],
+      "id": "oncall",
+      "sha256": "41692337d11e7ccc08d51824ca0c145df9ef8e8754f9485392852fc0bb7a9746"
+    },
+    "splunk": {
+      "data": [
+        {
+          "id": "event-1",
+          "minute": 100,
+          "service": "checkout",
+          "severity": "error",
+          "signature": "database-timeout"
+        }
+      ],
+      "id": "splunk",
+      "sha256": "248bac68c30fdaf839c32d291f2f1e2257fed0422983021af7baf3de3bca02d0"
+    },
+    "telemetry": {
+      "data": {
+        "buckets": [
+          {
+            "errors": 200,
+            "id": "bucket-98",
+            "minute": 98,
+            "requests": 10000,
+            "service": "checkout"
+          },
+          {
+            "errors": 200,
+            "id": "bucket-99",
+            "minute": 99,
+            "requests": 10000,
+            "service": "checkout"
+          }
+        ],
+        "burn_threshold": 10,
+        "error_budget_ppm": 1000,
+        "now_minute": 100,
+        "window_minutes": 3
+      },
+      "id": "telemetry",
+      "sha256": "f916be6fc73b287db968c9bf15388372f00a46321a43baa97dac054771e96ca1"
+    }
+  },
+  "incidents": [],
+  "missing": [],
+  "model": "qwen2.5:0.5b",
+  "planner": "ollama",
+  "ready": false,
+  "reason": "Review incomplete evidence before exporting events.",
+  "review": [
+    {
+      "reason": "incomplete telemetry window",
+      "service": "checkout"
+    }
+  ],
+  "stop": "evidence_complete",
+  "trace": [
+    {
+      "event": "observed",
+      "source": "telemetry",
+      "step": 1
+    },
+    {
+      "event": "observed",
+      "source": "oncall",
+      "step": 2
+    },
+    {
+      "event": "observed",
+      "source": "splunk",
+      "step": 3
+    }
+  ]
+}

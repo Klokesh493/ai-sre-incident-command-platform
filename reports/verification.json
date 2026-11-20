@@ -1,0 +1,22 @@
+{
+  "tests": 29,
+  "replay_scenarios": 6,
+  "model_runs": 2,
+  "http_demo": {
+    "decision": "page",
+    "state": "exported",
+    "mode": "replay",
+    "files": [
+      "pagerduty-events.json"
+    ],
+    "hec": {
+      "accepted": 3,
+      "attempted": 3,
+      "pending": 0
+    }
+  },
+  "promtool_rules": "passed",
+  "config_parse": "passed",
+  "live_prometheus_scrape": "passed",
+  "source_sha256": "78154c48e43f109e0948d0d35b1f4bd0a216592a3bda4117daec6a9f5c110100"
+}

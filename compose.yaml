@@ -1,0 +1,48 @@
+services:
+  api:
+    build: .
+    ports: ["127.0.0.1:8000:8000"]
+    environment:
+      OPS_API_TOKEN: ${OPS_API_TOKEN:?Set OPS_API_TOKEN}
+      OPS_DATABASE: /data/platform.sqlite3
+      OPS_MODEL: ${OPS_MODEL:-qwen2.5:0.5b}
+      OPS_MODEL_HOST: ollama
+      SPLUNK_HEC_URL: http://hec-mock:8088/services/collector/event
+      SPLUNK_HEC_TOKEN: ${MOCK_HEC_TOKEN:?Set MOCK_HEC_TOKEN}
+    volumes: ["state:/data"]
+    read_only: true
+    tmpfs: ["/tmp"]
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    depends_on: [hec-mock]
+  hec-mock:
+    build: .
+    command: ["uvicorn", "tools.hec_mock:create_app", "--factory", "--host", "0.0.0.0", "--port", "8088"]
+    environment:
+      MOCK_HEC_TOKEN: ${MOCK_HEC_TOKEN:?Set MOCK_HEC_TOKEN}
+    read_only: true
+    tmpfs: ["/tmp"]
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+  prometheus:
+    image: prom/prometheus:v3.16.0
+    ports: ["127.0.0.1:9090:9090"]
+    volumes:
+      - ./deploy/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./deploy/prometheus/rules.yml:/etc/prometheus/rules.yml:ro
+  grafana:
+    image: grafana/grafana:12.3.3
+    ports: ["127.0.0.1:3000:3000"]
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?Set GRAFANA_ADMIN_PASSWORD}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - ./deploy/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./deploy/grafana/dashboards:/var/lib/grafana/dashboards:ro
+  ollama:
+    image: ollama/ollama:0.29.0
+    profiles: [ai]
+    volumes: ["models:/root/.ollama"]
+volumes:
+  state: {}
+  models: {}

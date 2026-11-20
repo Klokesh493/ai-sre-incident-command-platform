@@ -1,0 +1,11 @@
+{
+  "results": [
+    {
+      "event_id": "event-1",
+      "service": "checkout",
+      "_time": "6000",
+      "signature": "database-timeout",
+      "severity": "error"
+    }
+  ]
+}

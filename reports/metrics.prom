@@ -1,0 +1,28 @@
+# HELP ops_evaluations_total New evaluations
+# TYPE ops_evaluations_total counter
+ops_evaluations_total{decision="page"} 1.0
+# HELP ops_evaluations_created New evaluations
+# TYPE ops_evaluations_created gauge
+ops_evaluations_created{decision="page"} 1.7951468524805062e+09
+# HELP ops_evaluation_seconds Agent evaluation latency
+# TYPE ops_evaluation_seconds histogram
+ops_evaluation_seconds_bucket{le="0.005"} 1.0
+ops_evaluation_seconds_bucket{le="0.01"} 1.0
+ops_evaluation_seconds_bucket{le="0.025"} 1.0
+ops_evaluation_seconds_bucket{le="0.05"} 1.0
+ops_evaluation_seconds_bucket{le="0.075"} 1.0
+ops_evaluation_seconds_bucket{le="0.1"} 1.0
+ops_evaluation_seconds_bucket{le="0.25"} 1.0
+ops_evaluation_seconds_bucket{le="0.5"} 1.0
+ops_evaluation_seconds_bucket{le="0.75"} 1.0
+ops_evaluation_seconds_bucket{le="1.0"} 1.0
+ops_evaluation_seconds_bucket{le="2.5"} 1.0
+ops_evaluation_seconds_bucket{le="5.0"} 1.0
+ops_evaluation_seconds_bucket{le="7.5"} 1.0
+ops_evaluation_seconds_bucket{le="10.0"} 1.0
+ops_evaluation_seconds_bucket{le="+Inf"} 1.0
+ops_evaluation_seconds_count 1.0
+ops_evaluation_seconds_sum 0.00011087500024586916
+# HELP ops_evaluation_seconds_created Agent evaluation latency
+# TYPE ops_evaluation_seconds_created gauge
+ops_evaluation_seconds_created 1.79514685230181e+09

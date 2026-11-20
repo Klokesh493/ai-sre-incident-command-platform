@@ -1,0 +1,10 @@
+groups:
+  - name: ops-platform
+    rules:
+      - alert: OperationsEvaluationHolds
+        expr: sum(increase(ops_evaluations_total{decision=~".*hold|review"}[10m])) > 3
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: Repeated operations decisions require review

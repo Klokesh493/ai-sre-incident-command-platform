@@ -1,0 +1,52 @@
+{
+  "now_minute": 100,
+  "window_minutes": 3,
+  "error_budget_ppm": 1000,
+  "burn_threshold": 10,
+  "telemetry": [
+    {
+      "id": "bucket-98",
+      "service": "checkout",
+      "minute": 98,
+      "requests": 10000,
+      "errors": 200
+    },
+    {
+      "id": "bucket-99",
+      "service": "checkout",
+      "minute": 99,
+      "requests": 10000,
+      "errors": 200
+    },
+    {
+      "id": "bucket-100",
+      "service": "checkout",
+      "minute": 100,
+      "requests": 10000,
+      "errors": 200
+    }
+  ],
+  "splunk": [
+    {
+      "id": "event-1",
+      "service": "checkout",
+      "minute": 100,
+      "signature": "database-timeout",
+      "severity": "error"
+    }
+  ],
+  "oncall": [
+    {
+      "service": "checkout",
+      "owner": "responder-a",
+      "start_minute": 50,
+      "end_minute": 120
+    },
+    {
+      "service": "checkout",
+      "owner": "responder-b",
+      "start_minute": 50,
+      "end_minute": 120
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "name": "incident",
+    "expected": "page",
+    "decision": "page",
+    "passed": true
+  },
+  {
+    "name": "healthy",
+    "expected": "observe",
+    "decision": "observe",
+    "passed": true
+  },
+  {
+    "name": "missing-minute",
+    "expected": "review",
+    "decision": "review",
+    "passed": true
+  },
+  {
+    "name": "shift-ended",
+    "expected": "review",
+    "decision": "review",
+    "passed": true
+  },
+  {
+    "name": "ambiguous-owner",
+    "expected": "review",
+    "decision": "review",
+    "passed": true
+  },
+  {
+    "name": "missing-logs",
+    "expected": "review",
+    "decision": "review",
+    "passed": true
+  }
+]

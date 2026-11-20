@@ -1,0 +1,13 @@
+{
+  "decision": "page",
+  "state": "exported",
+  "mode": "replay",
+  "files": [
+    "pagerduty-events.json"
+  ],
+  "hec": {
+    "accepted": 3,
+    "attempted": 3,
+    "pending": 0
+  }
+}

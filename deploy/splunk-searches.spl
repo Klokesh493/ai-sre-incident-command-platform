@@ -1,0 +1,9 @@
+sourcetype="ops:audit"
+| spath input=_raw path=event.run_id output=run_id
+| spath input=_raw path=event.kind output=kind
+| stats count by run_id, kind
+
+sourcetype="ops:audit"
+| spath input=_raw path=event.id output=event_id
+| dedup event_id
+| timechart count

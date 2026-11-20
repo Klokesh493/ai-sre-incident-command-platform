@@ -1,0 +1,32 @@
+[
+  {
+    "name": "incident",
+    "input": "incident.json",
+    "expected": "page"
+  },
+  {
+    "name": "healthy",
+    "input": "healthy.json",
+    "expected": "observe"
+  },
+  {
+    "name": "missing-minute",
+    "input": "missing-minute.json",
+    "expected": "review"
+  },
+  {
+    "name": "shift-ended",
+    "input": "shift-ended.json",
+    "expected": "review"
+  },
+  {
+    "name": "ambiguous-owner",
+    "input": "ambiguous-owner.json",
+    "expected": "review"
+  },
+  {
+    "name": "missing-logs",
+    "input": "missing-logs.json",
+    "expected": "review"
+  }
+]
